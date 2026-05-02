@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.11-slim'
-            args '-u root:root'
-        }
-    }
+    agent any
 
     stages {
         stage('Checkout') {
@@ -16,10 +11,10 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                echo 'Installing Python dependencies...'
+                echo 'Installing dependencies...'
                 sh '''
-                    python -m pip install --upgrade pip
-                    pip install -r requirements.txt
+                    python3 -m pip install --upgrade pip
+                    pip3 install -r requirements.txt
                 '''
             }
         }
@@ -31,16 +26,6 @@ pipeline {
                     pytest tests/
                 '''
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Jenkins pipeline completed successfully.'
-        }
-
-        failure {
-            echo 'Jenkins pipeline failed.'
         }
     }
 }
