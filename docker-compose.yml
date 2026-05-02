@@ -37,7 +37,9 @@ services:
 
 
   jenkins:
-    image: jenkins/jenkins:lts
+    build:
+      context: .
+      dockerfile: docker/jenkins/Dockerfile
     container_name: battery_jenkins
     ports:
       - "8080:8080"
