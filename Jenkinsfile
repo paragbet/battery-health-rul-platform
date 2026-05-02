@@ -9,12 +9,23 @@ pipeline {
             }
         }
 
+        stage('Create Virtual Environment') {
+            steps {
+                echo 'Creating isolated Python virtual environment...'
+                sh '''
+                    rm -rf .jenkins-venv
+                    python3 -m venv .jenkins-venv
+                '''
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
-                echo 'Installing dependencies...'
+                echo 'Installing dependencies inside virtual environment...'
                 sh '''
-                    python3 -m pip install --upgrade pip
-                    pip3 install -r requirements.txt
+                    . .jenkins-venv/bin/activate
+                    python -m pip install --upgrade pip
+                    pip install -r requirements.txt
                 '''
             }
         }
@@ -23,9 +34,20 @@ pipeline {
             steps {
                 echo 'Running unit tests...'
                 sh '''
+                    . .jenkins-venv/bin/activate
                     pytest tests/
                 '''
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Jenkins pipeline completed successfully.'
+        }
+
+        failure {
+            echo 'Jenkins pipeline failed.'
         }
     }
 }
