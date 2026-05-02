@@ -1,0 +1,19 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Models - optional
+# models/
+
+# Large raw data - do not push full NASA raw dataset
+data/raw/
+
+# Keep processed data for beginner CI
+# data/processed/

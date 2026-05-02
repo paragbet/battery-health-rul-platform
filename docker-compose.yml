@@ -1,0 +1,26 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: battery_postgres
+    environment:
+      POSTGRES_USER: battery_user
+      POSTGRES_PASSWORD: battery_pass
+      POSTGRES_DB: battery_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: battery_grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+volumes:
+  postgres_data:
+  grafana_data:
