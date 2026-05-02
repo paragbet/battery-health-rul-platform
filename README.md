@@ -109,3 +109,84 @@ The dashboard provides:
 ## How to Run Locally
 
 ### 1. Clone repository
+git clone https://github.com/YOUR_USERNAME/battery-health-rul-platform.git
+
+cd battery-health-rul-platform
+
+
+---
+
+### 2. Create virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+
+---
+
+### 3. Run ETL pipeline
+python -m src.ingest.extract_all_nasa_cycles
+
+---
+
+### 4. Feature engineering
+python src/features/build_features.py
+
+---
+
+### 5. Train ML model
+python src/models/train_capacity_model.py
+
+---
+
+### 6. Start PostgreSQL & Grafana
+docker compose up -d
+
+---
+
+### 7. Load data into PostgreSQL
+python src/db/load_cycles_to_postgres.py
+
+---
+
+### 8. Save predictions to PostgreSQL
+python src/models/save_predictions_to_postgres.py
+
+---
+
+### 9. Open Grafana
+http://localhost:3000
+
+Login: admin / admin
+
+---
+
+## CI/CD
+
+GitHub Actions pipeline automatically runs unit tests on every push.
+
+---
+
+## Project Highlights
+
+- Built scalable ETL pipeline to process multi-battery datasets
+- Designed feature engineering pipeline for battery degradation modeling
+- Developed ML model to predict battery capacity using real-world data
+- Integrated PostgreSQL for structured storage and querying
+- Built interactive Grafana dashboards for data visualization
+- Implemented CI/CD pipeline using GitHub Actions
+
+---
+
+## Future Improvements
+
+- Deep learning models (LSTM for time-series prediction)
+- Real-time data ingestion
+- API layer using FastAPI
+- Kubernetes deployment
+- Advanced anomaly detection
+
+---
+
+## Author
+
+Parag Betgeri
