@@ -35,6 +35,17 @@ services:
       DB_PORT: 5432
       DB_NAME: battery_db
 
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: battery_jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_data:/var/jenkins_home
+
 volumes:
   postgres_data:
   grafana_data:
+  jenkins_data:
