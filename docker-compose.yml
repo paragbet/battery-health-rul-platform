@@ -21,6 +21,20 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
 
+  app:
+    build: .
+    container_name: battery_app
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app
+    environment:
+      DB_USER: battery_user
+      DB_PASSWORD: battery_pass
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: battery_db
+
 volumes:
   postgres_data:
   grafana_data:

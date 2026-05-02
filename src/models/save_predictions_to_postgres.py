@@ -4,7 +4,7 @@ from pathlib import Path
 import pandas as pd
 import joblib
 from sqlalchemy import create_engine
-
+import os
 
 # -------------------------------
 # File paths
@@ -18,11 +18,11 @@ MODEL_FILE = Path("models/capacity_model.joblib")
 # PostgreSQL connection settings
 # -------------------------------
 
-DB_USER = "battery_user"
-DB_PASSWORD = "battery_pass"
-DB_HOST = "localhost"
-DB_PORT = "5432"
-DB_NAME = "battery_db"
+DB_USER = os.getenv("DB_USER", "battery_user")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "battery_pass")
+DB_HOST = os.getenv("DB_HOST", "localhost")
+DB_PORT = os.getenv("DB_PORT", "5432")
+DB_NAME = os.getenv("DB_NAME", "battery_db")
 
 TABLE_NAME = "battery_capacity_predictions"
 

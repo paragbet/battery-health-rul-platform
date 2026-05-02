@@ -3,17 +3,18 @@
 from pathlib import Path
 import pandas as pd
 from sqlalchemy import create_engine
+import os
 
 
 # Path to processed combined CSV
 CSV_FILE = Path("data/processed/all_batteries_cycles.csv")
 
 # PostgreSQL connection details
-DB_USER = "battery_user"
-DB_PASSWORD = "battery_pass"
-DB_HOST = "localhost"
-DB_PORT = "5432"
-DB_NAME = "battery_db"
+DB_USER = os.getenv("DB_USER", "battery_user")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "battery_pass")
+DB_HOST = os.getenv("DB_HOST", "localhost")
+DB_PORT = os.getenv("DB_PORT", "5432")
+DB_NAME = os.getenv("DB_NAME", "battery_db")
 
 # Table name
 TABLE_NAME = "battery_cycles"
