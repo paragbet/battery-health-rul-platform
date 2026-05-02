@@ -12,17 +12,17 @@ pipeline {
             steps {
                 sh '''
                     rm -rf .jenkins-venv
-                    python3.11 -m venv .jenkins-venv
+                    python3 -m venv .jenkins-venv
                 '''
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Install CI Dependencies') {
             steps {
                 sh '''
                     . .jenkins-venv/bin/activate
                     python -m pip install --upgrade pip
-                    pip install -r requirements.txt
+                    pip install -r requirements-ci.txt
                 '''
             }
         }
@@ -34,6 +34,16 @@ pipeline {
                     pytest tests/
                 '''
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Jenkins CI pipeline completed successfully.'
+        }
+
+        failure {
+            echo 'Jenkins CI pipeline failed.'
         }
     }
 }
