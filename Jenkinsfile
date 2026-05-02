@@ -22,7 +22,8 @@ pipeline {
                 sh '''
                     . .jenkins-venv/bin/activate
                     python -m pip install --upgrade pip
-                    pip install -r requirements-ci.txt
+                    python -m pip install pytest pandas
+                    python -m pip list
                 '''
             }
         }
@@ -31,7 +32,7 @@ pipeline {
             steps {
                 sh '''
                     . .jenkins-venv/bin/activate
-                    pytest tests/
+                    python -m pytest tests/
                 '''
             }
         }
