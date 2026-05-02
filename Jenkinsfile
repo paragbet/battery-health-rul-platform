@@ -12,7 +12,7 @@ pipeline {
             steps {
                 sh '''
                     rm -rf .jenkins-venv
-                    python3 -m venv .jenkins-venv
+                    python3.11 -m venv .jenkins-venv
                 '''
             }
         }
